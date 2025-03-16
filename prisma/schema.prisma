@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Prisma does not use migrations for MongoDB => no migrations are created
+
+generator nestjsDto {
+  provider                        = "prisma-generator-nestjs-dto"
+  output                          = "../src/generated"
+  outputToNestJsResourceStructure = "false"
+  flatResourceStructure           = "false"
+  exportRelationModifierClasses   = "true"
+  reExport                        = "true"
+  createDtoPrefix                 = "Create"
+  updateDtoPrefix                 = "Update"
+  dtoSuffix                       = "Dto"
+  entityPrefix                    = ""
+  entitySuffix                    = "Entity"
+  classValidation                 = "true"
+  fileNamingStyle                 = "kebab"
+  noDependencies                  = "false"
+  outputType                      = "class"
+  prettier                        = "true"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum MessageSender {
+  USER
+  BOT
+}
+
+enum SkinConcern {
+  DARK_CIRCLES
+  DRY_SKIN
+  FRECKLES
+  OILY_SKIN
+  REDNESS_ROSACEA
+  SCARS
+  WRINKLES
+}
+
+model User {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String    @map("name")
+  avatar    String?   @map("avatar")
+  phone     String?   @map("phone")
+  email     String    @unique @map("email")
+  password  String    @map("password")
+  sessions  ChatSession[]
+}
+
+model ChatSession {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String?  @db.ObjectId
+  createdAt DateTime @default(now())
+  
+  user     User?         @relation(fields: [userId], references: [id])
+  messages ChatMessage[]
+}
+
+model ChatMessage {
+  id        String        @id @default(auto()) @map("_id") @db.ObjectId
+  sessionId String        @db.ObjectId
+  sender    MessageSender
+  message   String
+  createdAt DateTime      @default(now())
+  
+  session ChatSession @relation(fields: [sessionId], references: [id])
+}
