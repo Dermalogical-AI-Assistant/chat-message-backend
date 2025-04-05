@@ -8,7 +8,7 @@ import { LoginUserDto } from "src/common/dto/loginUser.dto";
 
 @ApiTags("Chat")
 @Controller({
-  path: "session",
+  path: "v1/session",
   version: "1",
 })
 @ApiBearerAuth()

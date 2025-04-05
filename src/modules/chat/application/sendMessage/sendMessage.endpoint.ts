@@ -7,7 +7,7 @@ import { AuthenGuard } from "src/common/guard/authen.guard";
 
 @ApiTags("Chat")
 @Controller({
-  path: "chat",
+  path: "v1/chat",
   version: "1",
 })
 @ApiBearerAuth()
