@@ -13,6 +13,7 @@ async function bootstrap() {
     .setTitle("Chat Message Service")
     .setDescription("API documentation for Chat Message Service")
     .setVersion("1.0")
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup("swagger", app, document);

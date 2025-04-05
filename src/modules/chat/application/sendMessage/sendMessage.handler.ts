@@ -3,7 +3,7 @@ import { SendMessageCommand } from "./sendMessage.command";
 import { PrismaService } from "src/database";
 
 @CommandHandler(SendMessageCommand)
-export class CreateUserHandler implements ICommandHandler<SendMessageCommand> {
+export class SendMessageHandler implements ICommandHandler<SendMessageCommand> {
   constructor(private readonly dbContext: PrismaService) {}
 
   public async execute({ body }: SendMessageCommand) {
