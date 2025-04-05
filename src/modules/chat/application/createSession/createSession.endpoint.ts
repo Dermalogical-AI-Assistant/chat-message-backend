@@ -2,22 +2,25 @@ import { Body, Controller, Post, UseGuards } from "@nestjs/common";
 import { CommandBus } from "@nestjs/cqrs";
 import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { CreateSessionCommand } from "./createSession.command";
-import { CreateSessionRequestBody } from "./createSession.request-body";
+import { AuthenGuard } from "src/common/guard/authen.guard";
+import { RequestUser } from "src/common/decorator/requestUser.decorator";
+import { LoginUserDto } from "src/common/dto/loginUser.dto";
 
 @ApiTags("Chat")
 @Controller({
-  path: "chat",
+  path: "session",
   version: "1",
 })
 @ApiBearerAuth()
+@UseGuards(AuthenGuard)
 export class CreateSessionEndpoint {
   constructor(protected commandBus: CommandBus) {}
 
-  @ApiOperation({ description: "Send an message" })
+  @ApiOperation({ description: "Create a chat session" })
   @Post()
-  public create(@Body() body: CreateSessionRequestBody) {
+  public create(@RequestUser() user: LoginUserDto) {
     return this.commandBus.execute<CreateSessionCommand>(
-      new CreateSessionCommand(body)
+      new CreateSessionCommand(user.id)
     );
   }
 }
