@@ -9,13 +9,3 @@ export const filterString = (
     }
     return undefined;
 };
-
-export const hashString = (password: string) => {
-    const saltRounds = 10;
-
-    const salt = bcrypt.genSaltSync(saltRounds);
-
-    const hashedPassword = bcrypt.hashSync(password, salt);
-
-    return hashedPassword;
-}
