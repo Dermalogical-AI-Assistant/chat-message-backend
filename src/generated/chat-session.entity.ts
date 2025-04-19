@@ -9,6 +9,10 @@ export class ChatSessionEntity {
   id: string;
   @ApiProperty({
     required: false,
+  })
+  title: string;
+  @ApiProperty({
+    required: false,
     nullable: true,
   })
   userId: string | null;

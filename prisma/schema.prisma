@@ -69,10 +69,11 @@ model User {
 
 model ChatSession {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
   userId    String?
   createdAt DateTime @default(now())
 
-  user     User?         @relation(fields: [userId], references: [id])
+  user     User?         @relation(fields: [userId], references: [id], onDelete: Cascade)
   messages ChatMessage[]
 }
 
@@ -83,5 +84,5 @@ model ChatMessage {
   message   String
   createdAt DateTime      @default(now())
 
-  session ChatSession @relation(fields: [sessionId], references: [id])
+  session ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
 }

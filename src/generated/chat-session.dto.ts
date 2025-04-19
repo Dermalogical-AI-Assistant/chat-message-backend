@@ -6,6 +6,10 @@ export class ChatSessionDto {
   })
   id: string;
   @ApiProperty({
+    required: false,
+  })
+  title: string;
+  @ApiProperty({
     type: "string",
     format: "date-time",
     required: false,

@@ -1,2 +1,2 @@
-export * from "./sendMessage";
-export * from "./createSession";
+export * from "./chatMessage";
+export * from "./chatSession";
