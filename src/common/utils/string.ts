@@ -1,5 +1,5 @@
 import { Prisma } from "@prisma/client";
-import * as bcrypt from 'bcrypt';
+
 export const filterString = (
     search?: string,
     mode: Prisma.QueryMode = Prisma.QueryMode.insensitive,
