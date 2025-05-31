@@ -11,7 +11,7 @@ RUN npm install
 # Copy application code
 COPY . .
 
-RUN npm run prisma:p
+RUN npm run prisma:g
 RUN npm run build
 
 # Expose port
