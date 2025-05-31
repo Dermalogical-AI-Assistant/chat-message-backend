@@ -7,12 +7,14 @@ import { UserTopic } from "./common/topic/user.topic";
 import { KafkaModule } from "./modules/kafka";
 import { KafkaConsumerService } from "./modules/kafka/services";
 import { UserService } from "./modules/users/services";
+import { StatisticsModule } from "./modules/statistics/statistics.module";
 
 @Module({
   imports: [
     ChatModule,
     PassportModule,
     UserModule,
+    StatisticsModule,
     KafkaModule,
     ConfigModule.forRoot(),
   ],

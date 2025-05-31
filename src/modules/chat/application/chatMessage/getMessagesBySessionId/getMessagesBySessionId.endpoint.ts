@@ -14,7 +14,7 @@ import { GetMessagesBySessionIdQuery } from "./getMessagesBySessionId.query";
 })
 @ApiBearerAuth()
 @UseGuards(AuthenGuard)
-export class GetUserByIdEndpoint {
+export class GetMessagesBySessionIdEndpoint {
   constructor(protected queryBus: QueryBus) {}
 
   @ApiOperation({ description: "Get chat messages by session id" })
