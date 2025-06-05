@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
 import { CreateSessionCommand } from "./createSession.command";
 import { PrismaService } from "src/database";
-import { ChatService } from "../../../services";
+import { ChatMessageService } from "../../../services";
 
 @CommandHandler(CreateSessionCommand)
 export class CreateSessionHandler
@@ -9,7 +9,7 @@ export class CreateSessionHandler
 {
   constructor(
     private readonly dbContext: PrismaService,
-    private readonly chatService: ChatService
+    private readonly chatService: ChatMessageService
   ) {}
 
   public async execute({ userId }: CreateSessionCommand) {

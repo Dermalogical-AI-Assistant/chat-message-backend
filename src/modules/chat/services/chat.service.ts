@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class ChatService {
+export class ChatMessageService {
   private readonly cuteTitles = [
     "Glow Getter Chat 💖",
     "Beauty Bestie Session ✨",

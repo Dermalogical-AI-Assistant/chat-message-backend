@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { ValidationService } from '../services/validation.service';
 import { KafkaModule } from '../kafka';
+import { GrpcModule } from 'src/grpc';
 
 const applications = Object.values(useCases);
 const endpoints = applications.filter((x) => x.name.endsWith('Endpoint'));
@@ -18,6 +19,7 @@ const Services = [...Object.values(services)];
     CqrsModule, 
     KafkaModule,
     DatabaseModule, 
+    GrpcModule,
     ConfigModule.forRoot(),
     JwtModule.register({signOptions: {algorithm: 'HS256'}})
   ],
