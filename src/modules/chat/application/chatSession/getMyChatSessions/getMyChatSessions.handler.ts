@@ -2,6 +2,7 @@ import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
 import { GetMyChatSessionsQueryResponse } from "./getMyChatSessions.response";
 import { PrismaService } from "src/database";
 import { GetMyChatSessionsQuery } from "./getMyChatSessions.query";
+import { Prisma } from "@prisma/client";
 
 @QueryHandler(GetMyChatSessionsQuery)
 export class GetMyChatSessionsHandler
@@ -49,6 +50,9 @@ export class GetMyChatSessionsHandler
         },
         skip: (page - 1) * perPage,
         take: Number(perPage),
+        orderBy: {
+          createdAt: Prisma.SortOrder.desc,
+        }
       }),
     ]);
 

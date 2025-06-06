@@ -68,6 +68,9 @@ export class GetMessagesBySessionIdHandler
           createdAt: true,
         },
         skip: (page - 1) * perPage,
+        orderBy: {
+          createdAt: Prisma.SortOrder.desc,
+        },
         take: Number(perPage),
       }),
     ]);

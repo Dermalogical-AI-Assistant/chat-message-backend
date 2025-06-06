@@ -13,9 +13,10 @@ export class SendMessageHandler implements ICommandHandler<SendMessageCommand> {
 
     const response = await this.grpcClient.sendMessage(message);
 
-    console.log({response});
+    console.log({ response });
 
-    const [chatMessageUser, chatMessageBot] = await Promise.all([
+    await Promise.all([
+      // Create message for user
       this.dbContext.chatMessage.create({
         data: {
           sessionId,
@@ -29,20 +30,28 @@ export class SendMessageHandler implements ICommandHandler<SendMessageCommand> {
           createdAt: true,
         }
       }),
-      this.dbContext.chatMessage.create({
-        data: {
-          sessionId,
-          sender: MessageSender.BOT,
-          message: response.answer,
-        },
-        select: {
-          id: true,
-          message: true,
-          sender: true,
-          createdAt: true,
-        }
-      }),
-    ])
+
+      // Update session createdAt timestamp (createdAt is used to determine the last activity in the session)
+      this.dbContext.chatSession.update({
+        where: { id: sessionId },
+        data: { createdAt: new Date() },
+      })
+    ]);
+
+
+    const chatMessageBot = await this.dbContext.chatMessage.create({
+      data: {
+        sessionId,
+        sender: MessageSender.BOT,
+        message: response.answer,
+      },
+      select: {
+        id: true,
+        message: true,
+        sender: true,
+        createdAt: true,
+      }
+    });
 
     return chatMessageBot;
   }
