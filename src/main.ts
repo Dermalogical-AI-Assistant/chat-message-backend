@@ -19,7 +19,7 @@ async function bootstrap() {
   SwaggerModule.setup("swagger", app, document);
 
   await app.listen(port);
-  console.log(`🚀 User Analysis Service running on http://localhost:${port}`);
+  console.log(`🚀 Chat Message Service running on http://localhost:${port}`);
   console.log(`📄 Swagger UI available at http://localhost:${port}/swagger`);
 }
 

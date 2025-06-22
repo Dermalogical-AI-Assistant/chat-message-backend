@@ -3,17 +3,19 @@ import { SendMessageCommand } from "./sendMessage.command";
 import { PrismaService } from "src/database";
 import { GrpcClientService } from "src/grpc/services";
 import { MessageSender } from "@prisma/client";
+import { AxiosService } from "src/axios/services";
 
 @CommandHandler(SendMessageCommand)
 export class SendMessageHandler implements ICommandHandler<SendMessageCommand> {
-  constructor(private readonly dbContext: PrismaService, private readonly grpcClient: GrpcClientService) { }
+  constructor(private readonly dbContext: PrismaService, private readonly grpcClient: GrpcClientService, private axiosService: AxiosService) { }
 
   public async execute({ body }: SendMessageCommand) {
     const { sessionId, message } = body;
 
-    const response = await this.grpcClient.sendMessage(message);
+    // const response = await this.grpcClient.sendMessage(message);
+    const response = await this.axiosService.callQaService(message);
 
-    console.log({ response });
+    console.log(response);
 
     await Promise.all([
       // Create message for user
