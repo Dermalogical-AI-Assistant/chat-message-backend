@@ -12,8 +12,7 @@ export class SendMessageHandler implements ICommandHandler<SendMessageCommand> {
   public async execute({ body }: SendMessageCommand) {
     const { sessionId, message } = body;
 
-    // const response = await this.grpcClient.sendMessage(message);
-    const response = await this.axiosService.callQaService(message);
+    const response = await this.grpcClient.sendMessage(message);
 
     console.log(response);
 
