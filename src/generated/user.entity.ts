@@ -10,6 +10,10 @@ export class UserEntity {
   @ApiProperty({
     required: false,
   })
+  id_db: string;
+  @ApiProperty({
+    required: false,
+  })
   name: string;
   @ApiProperty({
     required: false,

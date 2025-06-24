@@ -7,6 +7,12 @@ export class UpdateUserDto {
   })
   @IsOptional()
   @IsString()
+  id_db?: string;
+  @ApiProperty({
+    required: false,
+  })
+  @IsOptional()
+  @IsString()
   name?: string;
   @ApiProperty({
     required: false,

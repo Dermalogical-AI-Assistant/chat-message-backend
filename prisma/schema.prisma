@@ -55,7 +55,8 @@ enum SkinConcern {
 }
 
 model User {
-  id       String    @id @map("_id")
+  id       String    @id @map("_id") @default(auto()) @db.ObjectId
+  id_db    String    @map("id")
   name     String
   avatar   String?
   email    String    @unique

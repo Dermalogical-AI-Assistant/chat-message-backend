@@ -5,27 +5,31 @@ import { UserDto } from "../user.dto";
 
 @Injectable()
 export class UserService {
-  constructor(private readonly dbContext: PrismaService) {}
+  constructor(private readonly dbContext: PrismaService) { }
 
   public async createUser(user: UserDto) {
     await this.dbContext.user.create({
-      data: user,
+      data: {
+        ...user,
+        id_db: user.id,
+      },
     });
   }
 
   public async updateUser(user: UserDto) {
-    await this.dbContext.user.update({
+    const { id, ...userData } = user;
+    await this.dbContext.user.updateMany({
       where: {
-        id: user.id
+        id_db: id
       },
-      data: user,
+      data: userData,
     });
   }
 
   public async deleteUserById(id: string) {
-    await this.dbContext.user.delete({
+    await this.dbContext.user.deleteMany({
       where: {
-        id,
+        id_db: id,
       },
     });
   }

@@ -10,7 +10,7 @@ export class CreateUserDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  id: string;
+  id_db: string;
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
